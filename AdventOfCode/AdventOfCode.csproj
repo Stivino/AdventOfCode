@@ -12,6 +12,7 @@
 
   <PropertyGroup>
     <NoWarn>S101</NoWarn>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
