@@ -8,7 +8,7 @@ namespace AdventOfCode
 
         private readonly string[] _input;
 
-        private BingoController Bingo;
+        private Game Bingo;
 
 
         public Day_04()
@@ -58,11 +58,11 @@ namespace AdventOfCode
 
         internal class BingoBoard
         {
-            public int[,] Board;
+            public int[,] Numbers;
 
             public BingoBoard(int[,] numbers)
             {
-                Board = numbers;
+                Numbers = numbers;
             }
 
             public bool HasWon(HashSet<int> numbers)
@@ -70,7 +70,7 @@ namespace AdventOfCode
                 bool won = false;
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        if (numbers.Contains(Board[i, j]))
+                        if (numbers.Contains(Numbers[i, j]))
                             won = true;
                         else {
                             won = false;
@@ -84,7 +84,7 @@ namespace AdventOfCode
 
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        if (numbers.Contains(Board[j, i]))
+                        if (numbers.Contains(Numbers[j, i]))
                             won = true;
                         else {
                             won = false;
@@ -103,7 +103,7 @@ namespace AdventOfCode
                 int sum = 0;
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        int i_num = Board[i, j];
+                        int i_num = Numbers[i, j];
 
                         if (!numbers.Contains(i_num)) {
                             sum += i_num;
@@ -118,7 +118,7 @@ namespace AdventOfCode
                 string s = String.Empty;
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        s += Board[i, j].ToString().PadRight(2, ' ') + " ";
+                        s += Numbers[i, j].ToString().PadRight(2, ' ') + " ";
                     }
                     s += " | ";
                 }
@@ -138,13 +138,13 @@ namespace AdventOfCode
         }
 
 
-        internal class BingoController
+        internal class Game
         {
             private HashSet<int> Numbers;
 
             private List<BingoBoard> Boards = new();
 
-            public BingoController(HashSet<int> nums, List<int[,]> boards)
+            public Game(HashSet<int> nums, List<int[,]> boards)
             {
                 foreach (var item in boards) {
                     Boards.Add(new(item));
