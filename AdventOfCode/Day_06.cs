@@ -6,13 +6,13 @@ namespace AdventOfCode
 
     public class Day_06 : BaseDay
     {
-        List<int> Laternfish;
-        Dictionary<int, ulong> Fish = new();
-
+        
+        readonly List<int> Laternfish = new();
+        readonly Dictionary<int, ulong> Fish = new();
         readonly int DaysOfReproduction = 80;
         public Day_06()
         {
-            Laternfish = new(File.ReadLines(InputFilePath).First().Split(',').Select(x => int.Parse(x)).ToList());
+            Laternfish.AddRange(File.ReadLines(InputFilePath).First().Split(',').Select(x => int.Parse(x)).ToArray());  
             for (int i = 0; i < 9; i++) {
                 Fish.Add(i, 0);
                 for (int j = 0; j < Laternfish.Count; j++) {
@@ -23,17 +23,19 @@ namespace AdventOfCode
             }
         }
 
+        /// <summary>
+        /// Currently slow as hell. Maybe because of the List. To lazy to improve speed, it's christmas time!
+        /// </summary>
+        /// <returns></returns>
         public override ValueTask<string> Solve_1()
         {
             int newFishes = 0;
             for (int i = 0; i < DaysOfReproduction; i++) {
                 for (int j = 0; j < Laternfish.Count; j++) {
-                    if (Laternfish[j] == 0) {
+                    if (Laternfish[j] == 0)
                         Laternfish[j] = 6;
-                    }
-                    else {
+                    else
                         Laternfish[j]--;
-                    }
                 }
                 while (newFishes > 0) { Laternfish.Add(8); newFishes--; }
                 newFishes = Laternfish.Where(x => x == 0).ToList().Count;
