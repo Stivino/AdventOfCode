@@ -5,9 +5,11 @@
     {
         private readonly int[] _input;
 
+
+
         public Day_01()
         {
-            _input = File.ReadAllLines(InputFilePath).Select(x => x == String.Empty ? x = "0": x = x ).Select(x => Convert.ToInt32(x)).ToArray();
+            _input = File.ReadAllLines(InputFilePath).Select(x => x == String.Empty ? x = "0" : x = x).Select(x => Convert.ToInt32(x)).ToArray();
         }
 
         public override ValueTask<string> Solve_1()
